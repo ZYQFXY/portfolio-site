@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二维码生成器</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 500px;
+      width: 100%;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+    }
+    #qrcode {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .download-btn {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔗 二维码生成器</h1>
+    <input type="text" id="urlInput" placeholder="输入你的网站地址（如：https://your-site.netlify.app）">
+    <button onclick="generateQRCode()">生成二维码</button>
+    <div id="qrcode"></div>
+    <button id="downloadBtn" class="download-btn hidden" onclick="downloadQRCode()">下载二维码</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    let qrcodeObj = null;
+
+    function generateQRCode() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        alert('请输入网站地址！');
+        return;
+      }
+
+      // 清除旧的二维码
+      const qrcodeDiv = document.getElementById('qrcode');
+      qrcodeDiv.innerHTML = '';
+
+      // 生成新二维码
+      qrcodeObj = new QRCode(qrcodeDiv, {
+        text: url,
+        width: 256,
+        height: 256,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // 显示下载按钮
+      document.getElementById('downloadBtn').classList.remove('hidden');
+    }
+
+    function downloadQRCode() {
+      const canvas = document.querySelector('#qrcode canvas');
+      if (!canvas) {
+        alert('请先生成二维码！');
+        return;
+      }
+
+      // 转换为图片并下载
+      const url = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'portfolio-qrcode.png';
+      link.href = url;
+      link.click();
+    }
+  </script>
+</body>
+</html>
