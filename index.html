@@ -643,15 +643,118 @@
     }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .stats { grid-template-columns: repeat(3, 1fr); gap: var(--sp-1); }
+
+    /* 平板端 (768px - 1024px) */
+    @media (max-width: 1024px) {
+      .container { padding: 0 var(--sp-3); }
       .proj-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .hero { padding: var(--sp-8) 0 var(--sp-6); }
-      .hero h1 { font-size: 2.2rem; }
-      .hero-sub { font-size: var(--text-lg); }
+      .stats { gap: var(--sp-2); }
     }
+
+    /* 移动端 (最大768px) */
+    @media (max-width: 768px) {
+      /* 导航栏 */
+      nav .container { height: 64px; }
+      .nav-logo { font-size: 1.2rem; }
+      .nav-links { display: none; }
+
+      /* Hero区域 */
+      .hero { padding: var(--sp-8) 0 var(--sp-6); }
+      .hero h1 {
+        font-size: 2rem !important;
+        line-height: 1.2;
+        margin-bottom: var(--sp-2);
+      }
+      .hero-sub {
+        font-size: var(--text-base);
+        margin-bottom: var(--sp-4);
+      }
+      .hero-chips { gap: 6px; margin-bottom: var(--sp-4); }
+      .chip {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+      }
+
+      /* 统计卡片 */
+      .stats {
+        grid-template-columns: 1fr;
+        gap: var(--sp-2);
+        margin-bottom: var(--sp-4);
+      }
+      .stat { padding: var(--sp-3); }
+      .stat-num { font-size: var(--text-2xl); }
+
+      /* Section */
+      .section { padding: var(--sp-8) 0; }
+      .sec-title { font-size: var(--text-xl); }
+
+      /* 项目卡片 */
+      .proj-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-2);
+      }
+      .proj-card { padding: var(--sp-3); }
+      .proj-icon { font-size: 1.4em; }
+      .proj-title { font-size: var(--text-sm); }
+
+      /* 工作经历 */
+      .job {
+        padding: var(--sp-3);
+        margin-bottom: var(--sp-2);
+      }
+      .job-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .job-name { font-size: var(--text-base); }
+
+      /* 技能区块 */
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-2);
+      }
+      .skill-group { padding: var(--sp-3); }
+      .skill-chip {
+        font-size: 0.8rem;
+        padding: 3px 10px;
+      }
+
+      /* 页脚 */
+      footer { padding: var(--sp-6) 0; }
+      footer p { font-size: 0.8rem !important; }
+    }
+
+    /* 小屏手机 (最大480px) */
+    @media (max-width: 480px) {
+      .container { padding: 0 var(--sp-2); }
+
+      .hero h1 { font-size: 1.75rem !important; }
+      .hero-sub { font-size: var(--text-sm); }
+
+      .stats { grid-template-columns: 1fr; }
+
+      .chip {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+      }
+
+      .proj-card-head { flex-direction: column; }
+      .proj-badge { align-self: flex-start; }
+
+      .skill-chip {
+        font-size: 0.75rem;
+        padding: 2px 8px;
+      }
+    }
+
+    /* 横屏模式优化 */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .hero { padding: var(--sp-6) 0 var(--sp-4); }
+      .section { padding: var(--sp-6) 0; }
+    }
+
+    /* 无障碍动画 */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
